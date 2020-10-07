@@ -6,13 +6,6 @@ import "./style.css"
 import TodoItem from "./TodoItem";
 
 
-const TodoItemsFromOutside = [
-  { id: "learn-react", labelName: "Learn React" },
-  { id: "create-todo-app", labelName: "Create a todo app" },
-  { id: "profit", labelName: "Profit" },
-  { id: "prettier", labelName: "Prettier is awesome!" },
-];
-
 const App = () => {
   const [todos, setTodos] = useState(TodoItemsFromOutside);
   const [newTodo, setNewTodo] = useState("");
