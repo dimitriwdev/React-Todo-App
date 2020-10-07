@@ -1,21 +1,21 @@
 import React from "react";
 
-const TodoItem = ({ id, labelName }) => {
-  //return React.createElement(
-  //    'div',
-  //    {className: "todo-item"},
-  //    [
-  //        React.createElement("input", {type: "checkbox", id: id}),
-  //        React.createElement("label", {htmlFor: id}, labelName),
-  //    ]
-  //)
+import PropTypes from "prop-types";
 
+export const myClassName = "todo-item";
+
+const TodoItem = ({ id, labelName }) => {
   return (
-    <div className="todo-item">
+    <div className={myClassName}>
       <input type="checkbox" id={id} />
       <label htmlFor={id}>{labelName}</label>
     </div>
   );
+};
+
+TodoItem.propTypes = {
+  id: PropTypes.string,
+  labelName: PropTypes.string,
 };
 
 export default TodoItem;
