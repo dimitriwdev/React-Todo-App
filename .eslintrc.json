@@ -5,7 +5,12 @@
     },
     "extends": [
         "eslint:recommended",
+<<<<<<< Updated upstream
         "plugin:react/recommended"
+=======
+        "plugin:react/recommended",
+        "prettier"
+>>>>>>> Stashed changes
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,8 +20,12 @@
         "sourceType": "module"
     },
     "plugins": [
+<<<<<<< Updated upstream
         "react",
         "prettier"
+=======
+        "react"
+>>>>>>> Stashed changes
     ],
     "rules": {
     }
