@@ -1,13 +1,7 @@
-const TodoItem = ({id, labelName}) => {
-    return React.createElement(
-        'div',
-        {className: "todo-item"},
-        [
-            React.createElement("input", {type: "checkbox", id: id}),
-            React.createElement("label", {htmlFor: id}, labelName),
-        ]
-    )
-}
+import React from 'react';
+import reactDOM from 'react-dom';
+
+import TodoItem from './TodoItem';
 
 const App = () => {
     return React.createElement('div', {id: "my-todo-app", className: "my-todo-app"}, [
