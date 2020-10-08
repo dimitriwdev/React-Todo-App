@@ -10,12 +10,18 @@ const App = () => {
   const [newTodo, setNewTodo] = useState("");
 
   useEffect(() => {
+    // Read todos
     const newTodos = JSON.parse(localStorage.getItem("todos") || "[]");
     setTodos(newTodos);
 
-    const newTodoFromStorage = JSON.parse(
-      localStorage.getItem("new-todo") || ""
-    );
+    // Read unfinished new-todo
+    let newTodoFromStorage = localStorage.getItem("new-todo");
+    if (newTodoFromStorage) {
+      newTodoFromStorage = JSON.parse(newTodoFromStorage);
+    } else {
+      newTodoFromStorage = "";
+    }
+
     setNewTodo(newTodoFromStorage);
   }, []);
 
