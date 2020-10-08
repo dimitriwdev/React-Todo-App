@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import reactDOM from "react-dom";
 
-import "./style.css"
+import "./style.css";
 
 import TodoItem from "./TodoItem";
 
-
+const myTodos = localStorage.getItem("todos") || [];
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(JSON.parse(myTodos));
   const [newTodo, setNewTodo] = useState("");
 
   const handleSubmit = (e) => {
@@ -18,19 +18,28 @@ const App = () => {
     ];
     setTodos(newTodos);
     setNewTodo("");
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const updateTodo = (id) => {
     //console.log("This is the todos BEFORE updating", todos); // false
     const newTodos = todos.map((item) => {
-      if(item.id === id){
-        return { ...item, completed: !item.completed }
+      if (item.id === id) {
+        return { ...item, completed: !item.completed };
       }
       return item;
-    })
+    });
     //console.log("This is the todos AFTER updating", newTodos); // true
     setTodos(newTodos);
-  }
+
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
+
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
 
   return (
     <div className="todoapp">
@@ -51,13 +60,14 @@ const App = () => {
         <ul className="todo-list">
           {todos.map((item) => {
             return (
-              <TodoItem 
-                key={item.id} 
-                id={item.id} 
+              <TodoItem
+                key={item.id}
+                id={item.id}
                 labelName={item.labelName}
                 completed={item.completed}
                 handleChange={updateTodo}
-                 />
+                handleDelete={deleteTodo}
+              />
             );
           })}
         </ul>
