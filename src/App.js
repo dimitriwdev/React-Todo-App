@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import reactDOM from "react-dom";
 
 import "./style.css";
 
 import TodoItem from "./TodoItem";
 
-const myTodos = localStorage.getItem("todos") || "[]";
 const App = () => {
-  const [todos, setTodos] = useState(JSON.parse(myTodos));
+  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
+
+  useEffect(() => {
+    const newTodos = JSON.parse(localStorage.getItem("todos") || "[]");
+    setTodos(newTodos);
+
+    const newTodoFromStorage = JSON.parse(
+      localStorage.getItem("new-todo") || ""
+    );
+    setNewTodo(newTodoFromStorage);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  useEffect(() => {
+    localStorage.setItem("new-todo", JSON.stringify(newTodo));
+  }, [newTodo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +35,6 @@ const App = () => {
     ];
     setTodos(newTodos);
     setNewTodo("");
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const updateTodo = (id) => {
@@ -31,14 +47,11 @@ const App = () => {
     });
     //console.log("This is the todos AFTER updating", newTodos); // true
     setTodos(newTodos);
-
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   return (
